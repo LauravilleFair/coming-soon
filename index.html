@@ -86,6 +86,9 @@
     .volunteer { margin-top: 28px; }
     .volunteer p { margin: 0 0 12px; opacity: .92; }
 
+    .edition { font: 600 .9rem/1.2 "Poppins", sans-serif; letter-spacing: .14em; text-transform: uppercase; margin: 12px 0 0; opacity: .9; }
+    .links { margin-top: 26px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; }
+    .links a { color: #fff; font-weight: 600; }
     footer { text-align: center; padding: 20px 16px 28px; font-size: .88rem; color: #c9d6df; }
   </style>
 </head>
@@ -99,6 +102,7 @@
         <span class="fair">FAIR</span>
       </h1>
       <span class="soon">New website coming soon</span>
+      <p class="edition"><span data-fair-edition>41st</span> Annual</p>
       <p class="date" data-fair-date>The last Saturday in September</p>
       <p class="place">Heinz Park · Baltimore, MD · 11AM–5PM</p>
 
@@ -134,9 +138,14 @@
       </div>
 
       <div class="volunteer">
-        <p>The Lauraville Fair is run by neighbors, for neighbors.</p>
+        <p>The Lauraville Fair is 100% volunteer run, by neighbors, for neighbors.</p>
         <a class="btn btn--butter" href="https://docs.google.com/forms/d/e/1FAIpQLSeDDVWm9sAnAsSfnVpJs2xV83ABrG366GGnju-wbQtdi0TFZA/viewform" target="_blank" rel="noopener">Sign up to volunteer</a>
       </div>
+      <nav class="links" aria-label="Contact and social">
+        <a href="mailto:Info@TheLauravilleFair.org">Info@TheLauravilleFair.org</a>
+        <a href="https://www.facebook.com/thelauravillefair" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.instagram.com/thelauravillefair/" target="_blank" rel="noopener">Instagram</a>
+      </nav>
     </div>
   </main>
 
@@ -165,6 +174,9 @@
     document.querySelector('[data-fair-date]').textContent =
       fair.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
     document.querySelector('[data-year]').textContent = now.getFullYear();
+    const edition = fair.getFullYear() - 1986; // 2026 was the 40th
+    const suffix = n => (n % 100 >= 11 && n % 100 <= 13) ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] || 'th');
+    document.querySelector('[data-fair-edition]').textContent = edition + suffix(edition);
 
     const start = new Date(fair); start.setHours(FAIR_START_HOUR);
     const tick = () => {
