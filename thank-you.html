@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thank You | The Lauraville Fair</title>
+  <meta name="description" content="Thank you for your payment to The Lauraville Fair.">
+  <!-- Hidden page: Square redirects here after a payment. Not linked anywhere, never indexed. -->
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="assets/logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy: #0f3f5e; --navy-deep: #0a2c43; --butter: #f6f0a6; --butter-deep: #e9dd6a; --paper: #fbfaf5; --ink: #1d2a33; --muted: #5a6872; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body { min-height: 100vh; display: flex; flex-direction: column; font: 400 1.0625rem/1.6 "Inter", system-ui, sans-serif; color: #fff; background: var(--navy); }
+    main { flex: 1; display: grid; place-items: center; padding: 48px 16px 32px; text-align: center; }
+    .wrap { width: min(600px, 100%); }
+    .logo { width: 150px; height: 150px; margin: 0 auto 20px; border-radius: 50%; background: #fff; display: block; box-shadow: 0 10px 40px rgba(0,0,0,.3); }
+    .the { display: block; font: 600 .9rem/1 "Poppins", sans-serif; letter-spacing: .3em; text-transform: uppercase; color: var(--butter); margin-bottom: 4px; }
+    .script { display: block; width: min(300px, 70vw); height: auto; margin: 0 auto; }
+    .fair { display: block; font: 700 1.8rem/1.1 "Poppins", sans-serif; color: var(--butter); letter-spacing: .1em; }
+    h1 { font: 700 clamp(2rem, 6vw, 2.6rem)/1.2 "Poppins", sans-serif; margin: 28px 0 6px; }
+    .lead { opacity: .92; margin: 0 0 24px; }
+    .card { background: var(--paper); color: var(--ink); border-radius: 16px; padding: 24px 26px; text-align: left; box-shadow: 0 10px 40px rgba(0,0,0,.25); }
+    .card ol { margin: 0; padding-left: 1.2em; }
+    .card li { margin-bottom: 10px; }
+    .card li:last-child { margin-bottom: 0; }
+    .card a { color: var(--navy); }
+    .see-you { margin: 24px 0; font-weight: 600; color: var(--butter); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; font: 600 1rem/1 "Poppins", sans-serif; text-decoration: none; padding: 14px 24px; border-radius: 999px; background: var(--butter); color: var(--navy-deep); }
+    .btn:hover { background: var(--butter-deep); }
+    footer { text-align: center; padding: 20px 16px 28px; font-size: .88rem; color: #c9d6df; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="wrap">
+      <img class="logo" src="assets/logo.webp" alt="The Lauraville Fair logo" width="150" height="150">
+      <span class="the">The</span>
+      <img class="script" src="assets/lauraville-script.svg?v=3" alt="Lauraville" width="300" height="133">
+      <span class="fair">FAIR</span>
+
+      <h1>Thank you!</h1>
+      <p class="lead">Your payment to The Lauraville Fair is complete.</p>
+
+      <div class="card">
+        <ol>
+          <li><strong>Check your email</strong> for your receipt from Square.</li>
+          <li><strong>Watch your inbox</strong> as fair day gets closer. We'll send setup times and everything else you need to know.</li>
+          <li><strong>Questions?</strong> Email us at <a href="mailto:Info@TheLauravilleFair.org">Info@TheLauravilleFair.org</a>.</li>
+        </ol>
+      </div>
+
+      <p class="see-you">See you at Heinz Park on <span data-fair-date>the last Saturday in September</span>!</p>
+      <a class="btn" href="./">Back to home</a>
+    </div>
+  </main>
+  <footer>© <span data-year></span> The Lauraville Fair · Heinz Park, Baltimore, MD</footer>
+  <script>
+    // The fair is always the last Saturday in September.
+    const last = y => { const d = new Date(y, 8, 30); d.setDate(30 - ((d.getDay() + 1) % 7)); return d; };
+    const now = new Date();
+    let fair = last(now.getFullYear());
+    const after = new Date(fair); after.setDate(fair.getDate() + 1);
+    if (now >= after) fair = last(now.getFullYear() + 1);
+    document.querySelector('[data-fair-date]').textContent =
+      fair.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+    document.querySelector('[data-year]').textContent = now.getFullYear();
+  </script>
+</body>
+</html>
